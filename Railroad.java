@@ -60,17 +60,40 @@ public class Railroad
 
     public String buildRailroad()
     {
+        Edge[] mst = new Edge[trackNum - 1];
+
+        DisjointSetImproved disj = new DisjointSetImproved(stationNum);
+
         String output = "";
+
+        int x, y;
+
+        int mstCount = 0;
+
+        int totalWeight = 0;
+
+        for (int c = 0; c < trackNum; c++)
+        {
+            x = stations.indexOf(tracks[c].start);
+            y = stations.indexOf(tracks[c].end);
+            if (disj.find(x) != disj.find(y))
+            {
+                disj.union(x, y);
+                mst[mstCount] = tracks[c];
+                mstCount++;
+                totalWeight += tracks[c].weight;
+                output += tracks[c].toString();
+            }
+        }
+
+        output += "The cost of the railroad is $" + Integer.toString(totalWeight) + ".";
 
         return output;
     }
 
-    static int[] ascendingIntList(int len)
+    int getIndex(String station)
     {
-        int[] res = new int[len];
-        for (int c = 0; c < len; c++)
-            res[c] = c;
-        return res;
+        return stations.indexOf(station);
     }
 }
 
@@ -100,6 +123,6 @@ final class Edge implements Comparable<Edge>
     @Override
     public String toString() {
         
-        return start + " " + end + " " + Integer.toString(weight);
+        return start + "---" + end + "\t$" + Integer.toString(weight) + "\n";
     }
 }
