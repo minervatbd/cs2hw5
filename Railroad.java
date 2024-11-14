@@ -4,15 +4,40 @@
  * Programming Assignment 5
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner; 
+
 public class Railroad 
 {
-    int tracks;
-    String file;
+    int trackNum;
+    Edge[] tracks;
 
-    public Railroad(int tracks, String file)
+    public Railroad(int n, String fName)
     {
-        this.tracks = tracks;
-        this.file = file;
+        this.trackNum = n;
+        this.tracks = new Edge[this.trackNum];
+
+        try
+        {
+            File inFile = new File(fName);
+
+            Scanner fScan = new Scanner(inFile);
+
+            for (int x = 0; x < this.trackNum; x++)
+            {
+                this.tracks[x] = new Edge(fScan.next(), fScan.next(), Integer.parseInt(fScan.next()));
+                System.out.println(this.tracks[x]);
+            }
+
+            fScan.close();
+        }
+
+        catch (FileNotFoundException e)
+        {
+            System.err.println("Input file not found!");
+            e.printStackTrace();
+        }        
     }
 
     public String buildRailroad()
@@ -44,5 +69,11 @@ final class Edge implements Comparable<Edge>
             return this.start.compareTo(o.start);
         else
             return this.end.compareTo(o.end);
+    }
+
+    @Override
+    public String toString() {
+        
+        return start + " " + end + " " + Integer.toString(weight);
     }
 }
