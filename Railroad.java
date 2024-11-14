@@ -7,12 +7,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Railroad 
 {
     int trackNum;
+    int stationNum;
     Edge[] tracks;
+    ArrayList<String> stations;
 
     public Railroad(int n, String fName)
     {
@@ -26,12 +29,22 @@ public class Railroad
             Scanner fScan = new Scanner(inFile);
 
             for (int x = 0; x < this.trackNum; x++)
+            {
                 this.tracks[x] = new Edge(fScan.next(), fScan.next(), Integer.parseInt(fScan.next()));
 
-            Arrays.sort(this.tracks);
+                if (!stations.contains(this.tracks[x].start))
+                {
+                    stations.add(this.tracks[x].start);
+                    stationNum++;
+                }
+                if (!stations.contains(this.tracks[x].end))
+                {
+                    stations.add(this.tracks[x].end);
+                    stationNum++;
+                }
+            }
 
-            for (int x = 0; x < this.trackNum; x++)
-                System.out.println(this.tracks[x]);
+            Arrays.sort(this.tracks);
 
             fScan.close();
         }
