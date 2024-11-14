@@ -64,6 +64,14 @@ public class Railroad
 
         return output;
     }
+
+    static int[] ascendingIntList(int len)
+    {
+        int[] res = new int[len];
+        for (int c = 0; c < len; c++)
+            res[c] = c;
+        return res;
+    }
 }
 
 final class Edge implements Comparable<Edge>
