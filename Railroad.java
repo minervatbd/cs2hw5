@@ -122,7 +122,9 @@ final class Edge implements Comparable<Edge>
 
     @Override
     public String toString() {
-        
-        return start + "---" + end + "\t$" + Integer.toString(weight) + "\n";
+        if (start.compareTo(end) <= 0)
+            return start + "---" + end + "\t$" + Integer.toString(weight) + "\n";
+        else
+            return end + "---" + start + "\t$" + Integer.toString(weight) + "\n";
     }
 }
