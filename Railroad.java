@@ -21,6 +21,8 @@ public class Railroad
     {
         this.trackNum = n;
         this.tracks = new Edge[this.trackNum];
+        this.stationNum = 0;
+        this.stations = new ArrayList<String>();
 
         try
         {
